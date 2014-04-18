@@ -1,19 +1,16 @@
-// Template.packages.greeting = function() {
-//   return "Welcome to pypisearch.";
-// };
+Meteor.subscribe('packages');
 
 Template.packageList.helpers({
   packages: function() {
     // return [{api_name: "aasd", description: "desc desc"}];
-    return Pypis.find({}, {sort: {api_name: -1}, limit: 10});
+    return Pypis.find({}, {sort: {api_name: -1}, limit: 20});
   }
 });
 
 
-// Template.packageItem.helpers({
-//   domain: function() {
-//     var a = document.createElement('a');
-//     a.href = this.url;
-//     return a.hostname;
-//   }
-// });
+Template.packageItem.helpers({
+  url: function(x) {
+    return "https://pypi.python.org/pypi/" + x.api_name; 
+    // + "/" + x.api_version;
+  }
+});

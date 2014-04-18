@@ -9,6 +9,10 @@
 //   return JSON.parse(xmlHttp.responseText);
 // }
 
+Meteor.publish('packages', function() {
+  return Pypis.find({}, {sort: {api_name: -1}, limit: 20}); 
+});
+
 if (Pypis.find().count() === 0) {
   var site = "http://api.stackexchange.com/2.1/comments?order=desc&sort=creation&site=stackoverflow";
   var site2 = "https://pypi.python.org/pypi/requests/json";
