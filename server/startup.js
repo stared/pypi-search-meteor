@@ -12,15 +12,17 @@
 Meteor.publish('packages', function() {
   // return Pypis.find({}, {sort: {api_name: 1}, limit: 20});
   var re = new RegExp("req", "i");
-  return Pypis.find({api_name: re}, {sort: {api_name: 1}, limit: 10})
+  return Pypis.find({api_name: re}, {sort: {api_name: 1}, limit: 10});
 });
 
-if (Pypis.find().count() === 0) {
-  var site = "http://api.stackexchange.com/2.1/comments?order=desc&sort=creation&site=stackoverflow";
-  var site2 = "https://pypi.python.org/pypi/requests/json";
-  var z = Meteor.http.get(site2).data;
-  Pypis.insert(z);
-}
+// if (Pypis.find().count() === 0) {
+//   var site = "http://api.stackexchange.com/2.1/comments?order=desc&sort=creation&site=stackoverflow";
+//   var site2 = "https://pypi.python.org/pypi/requests/json";
+//   var z = Meteor.http.get(site2).data;
+//   Pypis.insert(z);
+// }
+
+// var sanitizeReleases = function ...
 
 Meteor.methods({
   updatePackageEntry: function (name, id) {

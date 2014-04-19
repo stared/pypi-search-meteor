@@ -3,6 +3,7 @@ Meteor.subscribe('packages');
 Template.packageList.helpers({
   packages: function() {
     // return [{api_name: "aasd", description: "desc desc"}];
+    // I need to make a textbox or something
     var re = new RegExp("req", "i");
     return Pypis.find({api_name: re}, {sort: {api_name: 1}, limit: 10});
   }
@@ -11,7 +12,7 @@ Template.packageList.helpers({
 
 Template.packageItem.helpers({
   url: function() {
-    return "https://pypi.python.org/pypi/" + this.api_name; 
+    return "https://pypi.python.org/pypi/" + this.api_name;
     // + "/" + x.api_version;
   },
   more: function() {
@@ -25,6 +26,7 @@ Template.packageItem.helpers({
                   function (error, data) {
         return "Done!";
       });
+      return "Loading...";
     }
   }
 });
