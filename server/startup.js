@@ -9,9 +9,9 @@
 //   return JSON.parse(xmlHttp.responseText);
 // }
 
-Meteor.publish('packages', function() {
+Meteor.publish('packages', function(name_query) {
   // return Pypis.find({}, {sort: {api_name: 1}, limit: 20});
-  var re = new RegExp("req", "i");
+  var re = new RegExp(name_query, "i");
   return Pypis.find({api_name: re}, {sort: {api_name: 1}, limit: 10});
 });
 

@@ -1,10 +1,14 @@
-Meteor.subscribe('packages');
+// Meteor.subscribe('packages');
+
+Session.set('name_query', 'qut');
+
+Deps.autorun(function () {
+  Meteor.subscribe("packages", Session.get('name_query'));
+});
 
 Template.packageList.helpers({
   packages: function() {
-    // return [{api_name: "aasd", description: "desc desc"}];
-    // I need to make a textbox or something
-    var re = new RegExp("req", "i");
+    var re = new RegExp(Session.get('name_query'), "i");
     return Pypis.find({api_name: re}, {sort: {api_name: 1}, limit: 10});
   }
 });
