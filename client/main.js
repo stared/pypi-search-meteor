@@ -6,6 +6,31 @@ Deps.autorun(function () {
   Meteor.subscribe("packages", Session.get('name_query'));
 });
 
+// jquery variant does not help
+// Template.searchBar.rendered = function() { 
+//   $('.searchInput').on('keypress', function () { 
+//     var text = this.value;
+//     if (text.length > 2) {
+//       console.log(text);
+//       Session.set('name_query', text);
+//     } else {
+//       console.log("Write more letters! We have only: " + text);
+//     }
+//   }); 
+// } 
+
+Template.searchBar.events({
+  'keyup .searchInput': function (event, template) {
+    var text = template.find('.searchInput').value;
+    if (text.length > 2) {
+      console.log(text);
+      Session.set('name_query', text);
+    } else {
+      console.log("Write more letters! We have only: " + text);
+    }
+  }
+});
+
 Template.packageList.helpers({
   packages: function() {
     var re = new RegExp(Session.get('name_query'), "i");
@@ -23,7 +48,6 @@ Template.packageItem.helpers({
     if (this.hasOwnProperty('info')) {
       return this.info.downloads.last_month;
     } else {
-      console.log('calling meteor!');
       Meteor.call('updatePackageEntry',
                   this.api_name,
                   this._id,

@@ -3,8 +3,16 @@
 </head>
 
 <body>
+  {{> searchBar}}
   {{> packageList}}
 </body>
+
+<template name="searchBar">
+  <div class="searchBar">
+    Search for package names:
+    <input type="text" class="searchInput" value="qut">
+  </div>
+</template>
 
 <template name="packageList">
   <div class="packages">
