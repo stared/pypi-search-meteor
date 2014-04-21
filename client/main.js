@@ -42,7 +42,9 @@ Template.packageItem.helpers({
     }
   },
   max10chars: function (x) {
-    if (x.length > 12) {
+    if (x === undefined) {
+      return "";
+    } else if (x.length > 12) {
       return x.slice(0,9) + "...";
     } else {
       return x;
