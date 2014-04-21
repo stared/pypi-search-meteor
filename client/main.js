@@ -19,7 +19,7 @@ Template.searchBar.events({
 Template.packageList.helpers({
   packages: function() {
     var re = new RegExp(Session.get('name_query'), "i");
-    return Pypis.find({api_name: re}, {sort: {api_name: 1}, limit: 10});
+    return Pypis.find({api_name: re}, {sort: {'info.downloads.last_month': -1}, limit: 20});
   }
 });
 
