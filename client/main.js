@@ -17,7 +17,7 @@ Template.searchBar.events({
 });
 
 Template.packageList.helpers({
-  packages: function() {
+  packages: function () {
     var re = new RegExp(Session.get('name_query'), "i");
     return Pypis.find({api_name: re}, {sort: {'info.downloads.last_month': -1}, limit: 20});
   }
@@ -25,10 +25,10 @@ Template.packageList.helpers({
 
 
 Template.packageItem.helpers({
-  url: function() {
+  url: function () {
     return "https://pypi.python.org/pypi/" + this.api_name;
   },
-  more: function() {
+  more: function () {
     if (this.hasOwnProperty('info')) {
       return this.info.downloads.last_month;
     } else {
@@ -39,6 +39,20 @@ Template.packageItem.helpers({
         return "Done!";
       });
       return "Loading...";
+    }
+  },
+  max10chars: function (x) {
+    if (x.length > 12) {
+      return x.slice(0,9) + "...";
+    } else {
+      return x;
+    }
+  },
+  homePage: function () {
+    if (this.info && this.info.home_page !== "UNKNOWN") {
+      return this.info.home_page;
+    } else {
+      return "";
     }
   }
 });
