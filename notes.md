@@ -38,3 +38,5 @@ Sorting basically by all above.
 # very later
 
 * graph of packages?
+
+* tree of topics from https://pypi.python.org/pypi?%3Aaction=list_classifiers
