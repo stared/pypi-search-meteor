@@ -18,13 +18,18 @@ Meteor.methods({
     Pypis.update({_id: id}, {$set: res});
     return "Done!";
   },
-  testAutoparsing: function () {
-  var data = Meteor.http.get("https://pypi.python.org/pypi").content;
+  testAutoparsing: function (address) {
+  var address = address || "https://pypi.python.org/pypi";
+  var data = Meteor.http.get(address).content;
   var $ = cheerio.load(data);
   // var res = $('table.list a');
   var packages = [];
   $('table.list a').each(function(i, elem) {
     packages[i] = $(this).attr('href');
+  });
+  packages = packages.map(function (x) {
+    var split = x.split("/");
+    return split[split.length - 2];
   });
   return packages;
   }
