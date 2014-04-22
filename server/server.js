@@ -6,16 +6,19 @@ Meteor.publish('packages', function(name_query) {
   return Pypis.find({api_name: re}, {sort: {'info.downloads.last_month': -1}, limit: 20});
 });
 
-// var sanitizeReleases = function ...
-
 Meteor.startup(function () {
+  // Regenerating package list if database is empty;
+  // gets names and short descriptions of all packages in PyPI.
+  // It can take a few minutes to process them.
   if (Pypis.find().count() === 0) {
     var address = "https://pypi.python.org/pypi?%3Aaction=index";
     var $ = cheerio.load(Meteor.http.get(address).content);
     var packages = [];
+    var descriptions = [];
     var packagesDict = {};
     $('table.list a').each(function(i, elem) {
       packages[i] = $(this).attr('href');
+      descriptions[i] = $(this).parent().next().text();
     });
     packages = packages.map(function (x) {
       var split = x.split("/");
@@ -24,12 +27,14 @@ Meteor.startup(function () {
     for (var i = 0; i < packages.length; i++) {
       if (!(packages[i] in packagesDict)) {
         Pypis.insert({api_name: packages[i],
-                      description: "Will load later."});
+                      description: descriptions[i]});
         packagesDict[packages[i]] = true;
       }
     }
   }
 });
+
+// var sanitizeReleases = function ...
 
 Meteor.methods({
   updatePackageEntry: function (name, id) {
@@ -41,11 +46,11 @@ Meteor.methods({
     Pypis.update({_id: id}, {$set: res});
     return "Done!";
   },
+  // below, only for testing and learning purposes
   testAutoparsing: function (path) {
   var address = path || "https://pypi.python.org/pypi";
   var data = Meteor.http.get(address).content;
   var $ = cheerio.load(data);
-  // var res = $('table.list a');
   var packages = [];
   $('table.list a').each(function(i, elem) {
     packages[i] = $(this).attr('href');

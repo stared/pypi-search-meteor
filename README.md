@@ -5,4 +5,4 @@ pypi-search-meteor
 
 Inspired by [Sublime Packages search by wbond](http://wbond.net/sublime_packages).
 
-As of now runnable only on my computer, as requires some special setup of the database.
+As of now, work in progress, so I haven't deployed it yet. 
