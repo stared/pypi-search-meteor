@@ -28,7 +28,7 @@ Template.packageItem.helpers({
   url: function () {
     return "https://pypi.python.org/pypi/" + this.api_name;
   },
-  more: function () {
+  downloads: function () {
     if (this.hasOwnProperty('info')) {
       return this.info.downloads.last_month;
     } else {

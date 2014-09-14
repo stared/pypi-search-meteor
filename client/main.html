@@ -17,34 +17,21 @@
 
 <template name="packageList">
   <div class="packages">
-    <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Downloads per month</th>
-        <th>License</th>
-        <th>Author</th>
-        <th>Url</th>
-      </tr>
-    </thead>
-    <tbody>
+    <ul class="list-group">
     {{#each packages}}
       {{> packageItem}}
     {{/each}}
-    </tbody>
-    </table>
+    </ul>
   </div>
 </template>
 
 <template name="packageItem">
-  <tr>
-    <td><a href="{{url}}">{{api_name}}</a></td>
-    <td>{{more}}</td>
-    <td>{{max10chars info.license}}</td>
-    <td>{{info.author}}</td>
-    <td><a href="{{homePage}}">{{homePage}}</a></td>
-  </tr>
-  <tr>
-    <td colspan='5'>{{description}}</td>
-  </tr>
+  <li class="list-group-item">
+    <a href="{{url}}">{{api_name}}</a>
+    <span class="license">{{max10chars info.license}}</span>
+    by <span class="author">{{info.author}}</span>
+    <span class="badge downloads">{{downloads}}/month</span>
+    <a href="{{homePage}}">{{homePage}}</a><br>
+    {{description}}
+  </li>
 </template>

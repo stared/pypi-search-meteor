@@ -40,3 +40,4 @@ Sorting basically by all above.
 * graph of packages?
 
 * tree of topics from https://pypi.python.org/pypi?%3Aaction=list_classifiers
+* <img src="https://pypip.in/d/{{api_name}}/badge.svg">
