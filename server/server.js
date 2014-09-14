@@ -3,7 +3,8 @@ var cheerio = Meteor.require('cheerio');
 Meteor.publish('packages', function(name_query) {
   // return Pypis.find({}, {sort: {api_name: 1}, limit: 20});
   var re = new RegExp(name_query, "i");
-  return Pypis.find({api_name: re}, {sort: {'info.downloads.last_month': -1}, limit: 20});
+  return Pypis.find({$or: [{api_name: re}, {description: re}]},
+                    {sort: {'info.downloads.last_month': -1}, limit: 20});
 });
 
 Meteor.startup(function () {

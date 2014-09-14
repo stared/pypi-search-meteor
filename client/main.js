@@ -19,7 +19,8 @@ Template.searchBar.events({
 Template.packageList.helpers({
   packages: function () {
     var re = new RegExp(Session.get('name_query'), "i");
-    return Pypis.find({api_name: re}, {sort: {'info.downloads.last_month': -1}, limit: 20});
+    return Pypis.find({$or: [{api_name: re}, {description: re}]},
+                      {sort: {'info.downloads.last_month': -1}, limit: 20});
   }
 });
 
@@ -42,8 +43,12 @@ Template.packageItem.helpers({
     }
   },
   tags: function () {
-    var tmp;
-    var tags = this.info.classifiers;
+    var tmp, tags;
+    if (this.hasOwnProperty('info')) {
+      tags = this.info.classifiers || [];
+    } else {
+      tags = [];
+    }
     // I will as something for hierarchy
     tags = tags.map(function (tag) {
       tmp = tag.split(" :: ");
