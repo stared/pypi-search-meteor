@@ -41,6 +41,16 @@ Template.packageItem.helpers({
       return "Loading...";
     }
   },
+  tags: function () {
+    var tmp;
+    var tags = this.info.classifiers;
+    // I will as something for hierarchy
+    tags = tags.map(function (tag) {
+      tmp = tag.split(" :: ");
+      return {type: tmp[0], value: tmp.slice(1).join(": ")}
+    })
+    return tags;
+  },
   max10chars: function (x) {
     if (x === undefined) {
       return "";

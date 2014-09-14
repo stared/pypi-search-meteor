@@ -1,4 +1,9 @@
 .downloads {
 	position: absolute;
 	right: 10px;
-} 
+}
+
+.homepage {
+	position: absolute;
+	right: 100px;
+}

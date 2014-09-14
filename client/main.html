@@ -31,7 +31,14 @@
     <span class="license">{{max10chars info.license}}</span>
     by <span class="author">{{info.author}}</span>
     <span class="badge downloads">{{downloads}}/month</span>
-    <a href="{{homePage}}">{{homePage}}</a><br>
-    {{description}}
+    <a class="homepage" href="{{homePage}}">{{homePage}}</a><br>
+    {{description}}<br>
+    {{#each tags}}
+      {{> tag}}
+    {{/each}}
   </li>
+</template>
+
+<template name="tag">
+  <span class="label">{{value}}</span>
 </template>
